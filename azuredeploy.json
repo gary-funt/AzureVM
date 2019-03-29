@@ -2,16 +2,10 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "strLocation": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().location]",
-      "metadata": {
-        "group": "Infrastructure Configuration",
-        "description": "The region to deploy the resources into. Only change if resources need to be deployed to a different location than the resource group."
-      }
-    },
+    
     "strVmName": {
       "type": "string",
+      "defaultValue": "vm-test-01",
       "metadata": {
         "group": "Infrastructure Configuration",
         "description": "Specify the name of the VM meeting your naming standards."
@@ -20,6 +14,16 @@
     "strVmSize": {
       "type": "string",
       "defaultValue": "Standard_DS2_v2",
+      "allowedValues": [
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_V2",
+        "Standard_DS4_v2",
+        "Standard_F16s",
+        "Standard_F8s",
+        "Standard_F4s",
+        "Standard_F2s"
+      ],
       "metadata": {
         "group": "Infrastructure Configuration",
         "description": "Specify the size of the VM required."
@@ -76,13 +80,13 @@
     "objDataDisks": {
       "type": "object",
       "defaultValue": {
-          "disks": [
-            {
-              "Cache": "None",
-              "Size": 1024,
-              "StorageAccountType": "Standard_LRS"
-            }
-          ]
+        "disks": [
+          {
+            "Cache": "None",
+            "Size": 1024,
+            "StorageAccountType": "Standard_LRS"
+          }
+        ]
       },
       "metadata": {
         "description": "The data disks to attach to the VM"
@@ -129,6 +133,11 @@
     "strSku": {
       "type": "string",
       "defaultValue": "2016-Datacenter",
+      "allowedValues": [
+        "2019-Datacenter",
+        "2016-Datacenter",
+        "2012-R2-Datacenter"
+      ],
       "metadata": {
         "description": "The SKU of the selected offer and publisher to select for image to use"
       }
@@ -261,7 +270,7 @@
     "strAdminUsername": {
       "type": "string",
       "metadata": {
-        "description": "Specify the username of the Administrator account"
+        "description": "localadmin"
       }
     },
     "strAuthenticationType": {
